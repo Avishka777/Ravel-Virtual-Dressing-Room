@@ -4,6 +4,8 @@ import ThemeProvider from "./theme";
 import store from "./app/store";
 import Home from "./pages/Home/Home";
 import Layout from "./component/Layout";
+import Login from "./pages/Auth/Login";
+import Signup from "./pages/Auth/SignUp";
 
 
 const router = createBrowserRouter([
@@ -14,6 +16,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
       },
     ],
   },
