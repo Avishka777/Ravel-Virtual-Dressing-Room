@@ -8,6 +8,7 @@ import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/SignUp";
 import Cart from "./pages/Cart/Cart";
 import Product from "./pages/Product/Product";
+import UserDetails from "./pages/Admin/UserDetails";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/admin/user/details",
+    element: <UserDetails />,
+  },
+
 ]);
 
 const App = () => {
