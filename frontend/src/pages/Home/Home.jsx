@@ -1,4 +1,5 @@
 import { Divider, Grid, Typography } from "@mui/material";
+import Chatbot from "../../component/Chatbot";
 import video from "../../assets/main/home.mp4";
 
 const Home = () => {
@@ -16,6 +17,9 @@ const Home = () => {
           }}
         />
       </Grid>
+
+      {/* Chatbot Section */}
+      <Chatbot />
 
     </Grid>
   );
