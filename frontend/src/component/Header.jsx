@@ -49,7 +49,7 @@ function Header() {
       case "customize":
         navigate("/clothes/customize");
         break;
-      case "3D Model":
+      case "3d model":
         navigate("/3d-model");
         break;
       case "login":
