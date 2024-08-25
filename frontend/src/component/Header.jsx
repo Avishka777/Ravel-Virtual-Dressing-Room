@@ -9,7 +9,7 @@ import { Avatar, Button, Tooltip, MenuItem } from "@mui/material";
 import logowhite from "../assets/main/logowhite.png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const pages = ["Home", "3D Model", "Customize"];
+const pages = ["HOME", "3D MODEL", "CUSTOMIZE"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

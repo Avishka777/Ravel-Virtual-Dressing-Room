@@ -2,7 +2,6 @@
 import { post } from "../app/apiManager";
 
 class UserService {
-  //SignIn User
   // SignIn User
   static async signIn({ email, password }) {
     try {
