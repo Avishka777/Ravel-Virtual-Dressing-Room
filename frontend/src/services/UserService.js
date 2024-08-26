@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { post } from "../app/apiManager";
+import { get, post } from "../app/apiManager";
 
 class UserService {
   // SignIn User
@@ -29,6 +29,17 @@ class UserService {
       });
       return response;
     } catch (error) {
+      throw error;
+    }
+  }
+
+  // Fetch User Details
+  static async getAllUsers() {
+    try {
+      const response = await get({ path: "user" });
+      return response;
+    } catch (error) {
+      console.error("Error fetching all users:", error);
       throw error;
     }
   }

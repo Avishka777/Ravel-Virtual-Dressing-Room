@@ -25,13 +25,13 @@ export const post = async ({ path, requestBody, header = {} }) => {
 // GET request function
 export const get = async ({ path, header = {}, responseType = "json" }) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const token = store.getState().auth.token; // Get the token from the Redux store
+  const token = store.getState().auth.accessToken; // Get the token from the Redux store
 
   const response = await fetch(`${baseUrl}${path}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token ? `Bearer ${token}` : undefined, // Add Authorization header if token exists
+      Authorization: token ? `Bearer ${token}` : undefined, 
       ...header,
     },
   });

@@ -51,23 +51,34 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      const response = await UserService.signIn({
-        email: email,
-        password: password,
-      });
-      if (response.status === API_REQUEST_STATUS.SUCCESS && response?.data) {
-        const userData = {
-          id: response.data._id,
-          name: response.data.name,
-          email: response.data.email,
-          address: response.data.address,
-          phoneNumber: response.data.phoneNumber,
-          profilePicture: response.data.profilePicture,
-          token: response.data.token,
-          userType: response.data.userType,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-        dispatch(setUser(userData));
+      const response = await UserService.signIn({ email, password });
+
+      if (response.status === API_REQUEST_STATUS.SUCCESS && response.data) {
+        const {
+          name,
+          email: userEmail,
+          phone,
+          accessToken,
+          refreshToken,
+        } = response.data;
+
+        // Save user details in localStorage
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            name,
+            email: userEmail,
+            phone,
+            accessToken,
+            refreshToken,
+          })
+        );
+
+        // Update user details in Redux store
+        dispatch(
+          setUser({ name, email: userEmail, phone, accessToken, refreshToken })
+        );
+
         Swal.fire({
           title: "Success!",
           text: "You have successfully logged in!",
