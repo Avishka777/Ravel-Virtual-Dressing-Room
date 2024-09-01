@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   useGLTF,
@@ -15,7 +15,7 @@ import { state } from "../store/store";
 import { Grid } from "@mui/material";
 
 export const Section = ({ position = [0, 0, 2.5], fov = 25 }) => (
-  <Grid sx={{ height: "100vh", backgroundColor: "#f0f0f0" }}>
+  <Grid sx={{ height: "100vh", backgroundColor: "#a4a4a4" }}>
     <Canvas
       shadows
       camera={{ position, fov }}
@@ -40,9 +40,6 @@ function Shirt() {
   const snap = useSnapshot(state);
   const { nodes, materials } = useGLTF("/shirt_baked_collapsed.glb");
   const texture = useTexture(snap.decal);
-
-  console.log("Nodes:", nodes); // Log nodes to see available meshes
-  console.log("Materials:", materials); // Log materials to see available materials
 
   return (
     <group>
@@ -106,21 +103,49 @@ function Backdrop() {
 function CameraRig({ children }) {
   const group = useRef();
   const snap = useSnapshot(state);
+  const [isRotating, setIsRotating] = useState(false);
+  const lastMousePosition = useRef({ x: 0, y: 0 });
 
-  useFrame((state, delta) => {
-    easing.damp3(
-      state.camera.position,
-      [snap.intro ? -0.4 : 0, 0, 2.5],
-      0.25,
-      delta
-    );
-    easing.dampE(
-      group.current.rotation,
-      [state.pointer.y / 10, -state.pointer.x / 5, 0],
-      0.25,
-      delta
-    );
-  });
+  // Handle left mouse button press to enable rotation
+  const handlePointerDown = (event) => {
+    if (event.button === 0) {
+      setIsRotating(true);
+      lastMousePosition.current = { x: event.clientX, y: event.clientY };
+    }
+  };
 
-  return <group ref={group}>{children}</group>;
+  const handlePointerUp = () => {
+    setIsRotating(false);
+  };
+
+  const handlePointerMove = (event) => {
+    if (isRotating) {
+      const deltaX = event.clientX - lastMousePosition.current.x;
+      const deltaY = event.clientY - lastMousePosition.current.y;
+
+      group.current.rotation.y -= deltaX * 0.01; 
+      group.current.rotation.x -= deltaY * 0.01;
+
+      lastMousePosition.current = { x: event.clientX, y: event.clientY };
+    }
+  };
+
+  // Handle zooming with scroll wheel
+  const handleWheel = (event) => {
+    const zoomFactor = 0.1;
+    state.camera.position.z += event.deltaY * zoomFactor;
+  };
+
+  return (
+    <group
+      ref={group}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerUp}
+      onWheel={handleWheel}
+    >
+      {children}
+    </group>
+  );
 }
