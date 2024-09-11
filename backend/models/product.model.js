@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const {Schema, model} = mongoose;
-const {getNextSequence} = require('../helpers')
+const { Schema, model } = mongoose;
+const { getNextSequence } = require('../helpers')
 
 const productSchema = new Schema({
 
@@ -9,54 +9,60 @@ const productSchema = new Schema({
         unique: true,
     },
 
-    categoryId: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Category',
-        required: true
+    category: {
+        type: String,
+        required: true,
     },
 
-    thumbnailImage:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'ProductImage',
+    color: [{
+        type: String,
+    }],
+
+    size: [{
+        type: String,
+    }],
+
+    price: {
+        type: Number,
     },
 
-    image: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'ProductImage',
+    stock: {
+        type: Number,
     },
 
-    name:{
+    thumbnailImage: {
+        type: String,
+        default: 'https://cloud-atg.moph.go.th/quality/sites/default/files/default_images/default.png',
+    },
+
+    image: [{
+        type: String,
+    }],
+
+    name: {
         type: String,
         required: true,
         maxLength: [50, 'Name must be at most 50 characters long']
     },
 
-    price:{
-        type: Number,
-        required: true,
-        min: [100, 'Price must be at least 100'],
-        max: [1000000, 'Price must be at most 1000000']
-    },
-
-    description:{
+    description: {
         type: String,
-        required: true,
         maxLength: [500, 'Description must be at most 500 characters long']
     },
-    
-    isActive:{
+
+    isActive: {
         type: Boolean,
         default: true
     }
 
-}, {timestamps: true})
+}, { timestamps: true })
 
-productSchema.pre('save', async function(next) {
+productSchema.pre('save', async function (next) {
     if (this.isNew) {
         const nextId = await getNextSequence('Product')
         this.productId = `PROD${nextId}`
     }
     next()
-}) 
+})
 
 module.exports = model('Product', productSchema);

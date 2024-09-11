@@ -5,6 +5,7 @@ const verifyUser = require('../../utils/verifyUser')
 
 router.get('/', verifyUser, cartController.getAllFromCart);
 router.get('/:id', verifyUser, cartController.getOneFromCart);
+router.get('/byuser/:userId', verifyUser, cartController.productsByUserId);
 router.post('/', verifyUser, cartController.createCart);
 router.patch('/:id', verifyUser, cartController.updateCart);
 router.delete('/:id', verifyUser, cartController.deleteCart);

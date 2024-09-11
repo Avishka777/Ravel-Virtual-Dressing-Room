@@ -143,6 +143,7 @@ const login = async (req, res) => {
         console.log(accessToken, refreshToken);
 
         const userData = {
+            id: validUser._id,
             name: validUser.name,
             email: validUser.email,
             phone: validUser.phone,

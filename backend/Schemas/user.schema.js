@@ -5,7 +5,7 @@ const {addressSchema} = require('./address.schema')
 const userRegisterSchema = joi.object({
     name: joi.string().required().min(2).max(255),
     email: joi.string().required().email(),
-    address: addressSchema,
+    address: joi.string(),
     phone: joi.number().integer().required(),
     password: joi.string().required().min(8).max(100).regex(regExp.password)
 })

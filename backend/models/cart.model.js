@@ -9,16 +9,39 @@ const cartSchema = new Schema(
       type: String,
       unique: true,
     },
-    status: {
+    
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    size: {
+      type: String,
+      enum: ["S", "M", "L", "XL"],
+      required: true,
+    },
+
+    color: {
       type: String,
       required: true,
-      enum: ["Recieved", "Processing", "Completed"],
     },
-    orderId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
-      required: true,
+
+    quantity: {
+      type: Number,
+      default: 1,
     },
+
+    price:{
+      type: Number,
+    },
+
   },
   { timestamps: true }
 );

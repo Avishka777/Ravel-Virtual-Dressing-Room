@@ -16,7 +16,11 @@ var app = express();
 app.use(cookieParser());
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+  origin:['http://localhost:5173'],
+  credentials: true,
+}))
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
