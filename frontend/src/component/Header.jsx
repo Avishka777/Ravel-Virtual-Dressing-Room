@@ -33,13 +33,14 @@ function Header() {
     setAnchorElUser(null);
   };
 
-  // Retrieve user data from localStorage
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  const email = userData?.email;
+  const email = localStorage.getItem("email");
+  const id = localStorage.getItem("id");
+  const name = localStorage.getItem("name");
+  const phone = localStorage.getItem("phone");
 
   const settings = email
-    ? ["Profile", "Account", "Dashboard", "Logout"]
-    : ["Signup", "Login"];
+    ? ["PROFILE", "DASHBOARD", "LOGOUT"]
+    : ["SIGN IN", "SIGN UP"];
 
   const handleRedirect = (page) => {
     switch (page.toLowerCase()) {
@@ -52,11 +53,14 @@ function Header() {
       case "3d model":
         navigate("/3d-model");
         break;
-      case "login":
+      case "sign in":
         navigate("/login");
         break;
-      case "signup":
+      case "sign up":
         navigate("/signup");
+        break;
+      case "dashboard":
+        navigate("/admin/dashboard");
         break;
       default:
         break;
@@ -181,7 +185,7 @@ function Header() {
                   key={setting}
                   onClick={() => {
                     handleCloseUserMenu();
-                    if (setting === "Logout") {
+                    if (setting === "LOGOUT") {
                       handleLogout();
                     } else {
                       handleRedirect(setting);

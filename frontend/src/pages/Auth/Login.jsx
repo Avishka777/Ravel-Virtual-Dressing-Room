@@ -16,6 +16,7 @@ import UserService from "../../services/UserService";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CircularProgress from "@mui/material/CircularProgress";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import axios from "axios";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -49,36 +50,25 @@ const Login = () => {
 
   // Function to handle login process
   const handleLogin = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const response = await UserService.signIn({ email, password });
-
-      if (response.status === API_REQUEST_STATUS.SUCCESS && response.data) {
-        const {
-          name,
-          email: userEmail,
-          phone,
-          accessToken,
-          refreshToken,
-        } = response.data;
-
-        // Save user details in localStorage
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({
-            name,
-            email: userEmail,
-            phone,
-            accessToken,
-            refreshToken,
-          })
-        );
-
-        // Update user details in Redux store
-        dispatch(
-          setUser({ name, email: userEmail, phone, accessToken, refreshToken })
-        );
-
+      console.log(email);
+      console.log(password);
+      const response = await axios.post("http://localhost:3000/api/user/login", {
+        email: email,
+        password: password,
+      });
+  
+      if (response.status === 200) {
+        const { id, name, email, phone, accessToken } = response.data.data;
+  
+        // Save the user details and access token in local storage
+        localStorage.setItem('id', id);
+        localStorage.setItem('name', name);
+        localStorage.setItem('email', email);
+        localStorage.setItem('phone', phone);
+        localStorage.setItem('accessToken', accessToken);
+  
         Swal.fire({
           title: "Success!",
           text: "You have successfully logged in!",
@@ -108,6 +98,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+  
 
   // Toggle password visibility
   const handleTogglePasswordVisibility = () => {

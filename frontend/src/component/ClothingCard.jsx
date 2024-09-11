@@ -10,8 +10,14 @@ import Typography from "@mui/material/Typography";
 import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-export default function ClothingCard({ itemName, itemPrice, images = [], productId }) {
-  const [mainImage, setMainImage] = useState(images[0] || "");
+export default function ClothingCard({
+  itemName,
+  itemPrice,
+  images = [],
+  productId,
+  thumbnailImage,
+}) {
+  const [mainImage, setMainImage] = useState(thumbnailImage || images[0] || "");
   const navigate = useNavigate();
 
   const handleImageClick = (image) => {
@@ -23,7 +29,10 @@ export default function ClothingCard({ itemName, itemPrice, images = [], product
   };
 
   return (
-    <Card sx={{ width: "300px", boxShadow: "1rem", margin: 1 }} onClick={handleCardClick}>
+    <Card
+      sx={{ width: "300px", boxShadow: "1rem", margin: 1 }}
+      onClick={handleCardClick}
+    >
       <CardMedia
         component="img"
         height="400"
@@ -40,10 +49,13 @@ export default function ClothingCard({ itemName, itemPrice, images = [], product
       </CardContent>
       <CardActions disableSpacing>
         {images.map((image, index) => (
-          <IconButton key={index} onClick={(e) => {
-            e.stopPropagation();
-            handleImageClick(image);
-          }}>
+          <IconButton
+            key={index}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleImageClick(image);
+            }}
+          >
             <CardMedia
               component="img"
               height="50"
@@ -57,7 +69,10 @@ export default function ClothingCard({ itemName, itemPrice, images = [], product
             />
           </IconButton>
         ))}
-        <IconButton aria-label="add to favorites" onClick={(e) => e.stopPropagation()}>
+        <IconButton
+          aria-label="add to favorites"
+          onClick={(e) => e.stopPropagation()}
+        >
           <ShoppingCartIcon />
         </IconButton>
         <IconButton aria-label="share" onClick={(e) => e.stopPropagation()}>

@@ -11,6 +11,15 @@ import Product from "./pages/Product/Product";
 import UserDetails from "./pages/Admin/UserDetails";
 import ClothingDetails from "./pages/Admin/ClothingDetails";
 import ClothesCustomize from "./pages/Customize/ClothesCustomize";
+import axios from "axios"
+import CreateProduct from "./pages/Admin/CreateProduct";
+import MainDashboard from "./pages/Admin/MainDashboard";
+import UpdateProduct from "./pages/Admin/UpdateProduct";
+
+
+
+axios.defaults.withCredentials = true;
+
 
 const router = createBrowserRouter([
   {
@@ -44,8 +53,20 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/admin/dashboard",
+    element: <MainDashboard />,
+  },
+  {
     path: "/admin/user/details",
     element: <UserDetails />,
+  },
+  {
+    path: "/admin/clothing/create",
+    element: <CreateProduct />,
+  },
+  {
+    path: "/admin/clothing/update/:productId",
+    element: <UpdateProduct />,
   },
   {
     path: "/admin/clothing/details",

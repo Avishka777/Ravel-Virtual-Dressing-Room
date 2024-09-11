@@ -58,9 +58,12 @@ const Chatbot = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post("http://localhost:5000/api/chatbot", {
-        message: userInput,
-      });
+      const { data } = await axios.post(
+        "http://localhost:3000/api/chat-bot/chatbot",
+        {
+          message: userInput,
+        }
+      );
 
       const botMessages = [
         { sender: "bot", text: data.reply },
@@ -96,7 +99,7 @@ const Chatbot = () => {
   }, [messages]);
 
   return (
-    <Box sx={{ position: "fixed", bottom: 25, right: 25 }}>
+    <Box sx={{ position: "fixed", bottom: 25, right: 25, zIndex: 10 }}>
       <IconButton
         onClick={toggleChatbox}
         sx={{

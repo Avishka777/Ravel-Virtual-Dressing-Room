@@ -7,7 +7,7 @@ import { Menu, Typography, Container } from "@mui/material";
 import { AppBar, Box, Toolbar, IconButton } from "@mui/material";
 import { Avatar, Button, Tooltip, MenuItem } from "@mui/material";
 
-const pages = ["HOME", "USER DETAILS", "CLOTHING ITEMS"];
+const pages = ["HOME", "MAIN DASHBOARD","USER DETAILS", "ADD CLOTHING", "CLOTHING ITEMS"];
 
 function AdminHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -31,18 +31,22 @@ function AdminHeader() {
     setAnchorElUser(null);
   };
 
-  // Retrieve user data from localStorage
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  const email = userData?.email;
+  const email = localStorage.getItem("email");
+  const id = localStorage.getItem("id");
+  const name = localStorage.getItem("name");
+  const phone = localStorage.getItem("phone");
 
   const settings = email
-    ? ["Account", "Dashboard", "Logout"]
-    : ["Signup", "Login"];
+    ? ["PROFILE", "DASHBOARD", "LOGOUT"]
+    : ["SIGN IN", "SIGN UP"];
 
   const handleRedirect = (page) => {
     switch (page.toLowerCase()) {
       case "home":
         navigate("/");
+        break;
+        case "main dashboard":
+        navigate("/admin/dashboard");
         break;
       case "user details":
         navigate("/admin/user/details");
@@ -50,11 +54,17 @@ function AdminHeader() {
       case "clothing items":
         navigate("/admin/clothing/details");
         break;
-      case "login":
+      case "add clothing":
+        navigate("/admin/clothing/create");
+        break;
+      case "sign in":
         navigate("/login");
         break;
-      case "signup":
+      case "sign up":
         navigate("/signup");
+        break;
+      case "dashboard":
+        navigate("/admin/dashboard");
         break;
       default:
         break;
@@ -150,7 +160,7 @@ function AdminHeader() {
                   key={setting}
                   onClick={() => {
                     handleCloseUserMenu();
-                    if (setting === "Logout") {
+                    if (setting === "LOGOUT") {
                       handleLogout();
                     } else {
                       handleRedirect(setting);

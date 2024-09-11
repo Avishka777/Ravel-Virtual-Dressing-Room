@@ -1,8 +1,9 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useSnapshot } from "valtio";
 import { state } from "../store/store";
+import { motion, AnimatePresence } from "framer-motion";
 import { Box, Button, Grid, Typography, Slider } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 export function Overlay() {
   const snap = useSnapshot(state);
@@ -75,6 +76,19 @@ export function Customizer() {
     };
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      state.decal = reader.result;
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Grid>
       <Grid
@@ -82,110 +96,9 @@ export function Customizer() {
           position: "absolute",
           zIndex: 1,
           right: 2,
-        }}
-      >
-        <Box
-          sx={{
-            border: "4px solid white",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
-            backdropFilter: "blur(10px)",
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            margin: 2,
-            borderRadius: 1,
-            padding: 2,
-          }}
-        >
-          <Typography variant="h4" sx={{ color: "#fff" }}>
-            Select Color
-          </Typography>
-          {snap.colors.map((color) => (
-            <Box
-              key={color}
-              className={`circle`}
-              style={{
-                backgroundColor: color,
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                margin: "10px",
-                cursor: "pointer",
-                border: "4px solid white",
-              }}
-              onClick={() => (state.color = color)}
-            ></Box>
-          ))}
-          <Button
-            sx={{ background: "#fff", width: "9rem", mt: 1 }}
-            onClick={() => {
-              const link = document.createElement("a");
-              link.setAttribute("download", "canvas.png");
-              link.setAttribute(
-                "href",
-                document
-                  .querySelector("canvas")
-                  .toDataURL("image/png")
-                  .replace("image/png", "image/octet-stream")
-              );
-              link.click();
-            }}
-          >
-            <FileDownloadIcon sx={{ marginRight: "0.5rem" }} />
-            Download
-          </Button>
-        </Box>
-      </Grid>
-      <Grid
-        sx={{
           display: "flex",
-          position: "absolute",
-          zIndex: 1,
-          left: 2,
         }}
       >
-        <Box
-          sx={{
-            border: "4px solid white",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
-            backdropFilter: "blur(10px)",
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            margin: 2,
-            borderRadius: 1,
-            padding: 2,
-          }}
-        >
-          {snap.decals.map((decal) => (
-            <Box
-              key={decal}
-              sx={{
-                border: "2px solid #ddd",
-                borderRadius: "8px",
-                overflow: "hidden",
-                cursor: "pointer",
-                my: 1,
-                "&:hover": {
-                  borderColor: "#333",
-                },
-              }}
-              onClick={() => (state.decal = decal)}
-            >
-              <img
-                src={decal}
-                alt="brand"
-                style={{ width: "80px", maxHeight: "80px", height: "auto" }}
-              />
-            </Box>
-          ))}
-        </Box>
         <Box
           sx={{
             border: "4px solid white",
@@ -246,6 +159,137 @@ export function Customizer() {
             onChange={(e, val) => handlePositionChange("z", e, val)}
             sx={{ width: "80%", color: "#fff" }}
           />
+        </Box>
+        <Box
+          sx={{
+            border: "4px solid white",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            margin: 2,
+            borderRadius: 1,
+            padding: 2,
+          }}
+        >
+          {snap.colors.map((color) => (
+            <Box
+              key={color}
+              className={`circle`}
+              style={{
+                backgroundColor: color,
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                margin: "10px",
+                cursor: "pointer",
+                border: "4px solid white",
+              }}
+              onClick={() => (state.color = color)}
+            ></Box>
+          ))}
+        </Box>
+      </Grid>
+      <Grid
+        sx={{
+          display: "flex",
+          position: "absolute",
+          zIndex: 1,
+          left: 2,
+        }}
+      >
+        <Box
+          sx={{
+            border: "4px solid white",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            margin: 2,
+            borderRadius: 1,
+            padding: 2,
+          }}
+        >
+          {snap.decals.map((decal) => (
+            <Box
+              key={decal}
+              sx={{
+                border: "2px solid #ddd",
+                borderRadius: "8px",
+                overflow: "hidden",
+                cursor: "pointer",
+                mt: 1,
+                "&:hover": {
+                  borderColor: "#333",
+                },
+              }}
+              onClick={() => (state.decal = decal)}
+            >
+              <img
+                src={decal}
+                alt="brand"
+                style={{
+                  width: "120px",
+                  maxHeight: "120px",
+                  height: "auto",
+                  padding: "5px",
+                }}
+              />
+            </Box>
+          ))}
+          <Box>
+            <Typography variant="h6" mt={3} sx={{ color: "#fff" }}>
+              Try Your Image
+            </Typography>
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="file-upload"
+              type="file"
+              onChange={handleImageUpload}
+            />
+            <label htmlFor="file-upload">
+              <Button
+                sx={{
+                  marginTop: "0.5rem",
+                  background: "#0693E3",
+                  "&:hover": { backgroundColor: "#0574B2" },
+                  position: "relative",
+                }}
+                variant="contained"
+                component="span"
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload File
+              </Button>
+            </label>
+          </Box>
+          <Button
+            sx={{ background: "#fff", width: "8rem", mt: 2 }}
+            onClick={() => {
+              const link = document.createElement("a");
+              link.setAttribute("download", "canvas.png");
+              link.setAttribute(
+                "href",
+                document
+                  .querySelector("canvas")
+                  .toDataURL("image/png")
+                  .replace("image/png", "image/octet-stream")
+              );
+              link.click();
+            }}
+          >
+            <FileDownloadIcon sx={{ marginRight: "0.5rem" }} />
+            Download
+          </Button>
         </Box>
       </Grid>
     </Grid>
