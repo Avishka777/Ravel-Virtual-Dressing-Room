@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 
 export default function AllClothing() {
   const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // State for the search term
-  const [category, setCategory] = useState("All"); // State for category (Men, Women, or All)
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [category, setCategory] = useState("All"); 
 
   // Fetch products with category and search term
   useEffect(() => {
@@ -15,13 +15,12 @@ export default function AllClothing() {
       console.log("Starting to fetch products...");
 
       try {
-        // Build query parameters based on searchTerm and category
         const params = {};
         if (searchTerm) {
-          params.name = searchTerm; // If search term exists, add it to params
+          params.name = searchTerm;
         }
         if (category !== "All") {
-          params.category = category; // Add category to params if it's not "All"
+          params.category = category; 
         }
 
         const response = await axios.get(`http://localhost:3000/api/product`, { params });
@@ -40,16 +39,16 @@ export default function AllClothing() {
     };
 
     fetchProducts();
-  }, [searchTerm, category]); // Re-run effect when searchTerm or category changes
+  }, [searchTerm, category]); 
 
   // Handle search input change
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value); // Update search term when user types
+    setSearchTerm(e.target.value); 
   };
 
   // Handle category change
   const handleCategoryChange = (e) => {
-    setCategory(e.target.value); // Update category when user selects Men or Women
+    setCategory(e.target.value);
   };
 
   return (

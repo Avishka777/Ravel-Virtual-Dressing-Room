@@ -30,7 +30,7 @@ const UserProgressChart = () => {
         const response = await axios.get("http://localhost:3000/api/user");
         const userData = response.data.data;
 
-        const monthlyData = Array(12).fill(0); // Initialize an array with 12 zeros
+        const monthlyData = Array(12).fill(0);
 
         userData.forEach((user) => {
           const month = new Date(user.createdAt).getMonth();
@@ -108,13 +108,15 @@ const UserProgressChart = () => {
 
   return (
     <Grid container spacing={2}>
-        <Grid item xs={12 } textAlign="end" >
+       
+      <Grid item xs={12}>
+     
+        <Paper sx={{ p: 2, m: 2, backgroundColor: "#2c2c38", color: "#fff" }}>
+        <Grid textAlign="end" >
         <Button variant="contained" color="primary" onClick={generatePDF}>
           Download PDF
         </Button>
       </Grid>
-      <Grid item xs={12}>
-        <Paper sx={{ p: 2, m: 2, backgroundColor: "#2c2c38", color: "#fff" }}>
           <Typography variant="h6" align="center" gutterBottom>
             User Progress (Monthly Registrations)
           </Typography>

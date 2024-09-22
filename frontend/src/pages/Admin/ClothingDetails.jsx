@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Paper, Table, TableBody } from "@mui/material";
+import { Box, Button, Grid, Paper, Table, TableBody } from "@mui/material";
 import { TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import AdminHeader from "../../component/AdminHeader";
 import Footer from "../../component/Footer";
@@ -65,7 +65,13 @@ const ClothingDetails = () => {
     doc.text("Clothing Details", 20, 10);
 
     // Convert table data to a format that jsPDF AutoTable can use
-    const tableColumn = ["NAME", "IS AVAILABLE", "CREATED AT", "STOCK", "PRICE"];
+    const tableColumn = [
+      "NAME",
+      "IS AVAILABLE",
+      "CREATED AT",
+      "STOCK",
+      "PRICE",
+    ];
     const tableRows = [];
 
     products.forEach((product) => {
@@ -87,69 +93,75 @@ const ClothingDetails = () => {
   return (
     <Grid>
       <AdminHeader />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={generatePDF}
-        sx={{ m: 2 }}
-      >
-        Download PDF
-      </Button>
-      <TableContainer
-        component={Paper}
-        sx={{
-          backgroundColor: "#2c2c38",
-          color: "#fff",
-          p: 2,
-          m: 2,
-          minHeight: "100vh",
-        }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ color: "#000" }}>NAME</TableCell>
-              <TableCell sx={{ color: "#000" }}>IS AVAILABLE</TableCell>
-              <TableCell sx={{ color: "#000" }}>CREATED AT</TableCell>
-              <TableCell sx={{ color: "#000" }}>STOCK</TableCell>
-              <TableCell sx={{ color: "#000" }}>PRICE</TableCell>
-              <TableCell sx={{ color: "#000" }}>UPDATE</TableCell>
-              <TableCell sx={{ color: "#000" }}>DELETE</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {products.map((product) => (
-              <TableRow key={product._id}>
-                <TableCell sx={{ color: "#fff" }}>{product.name}</TableCell>
-                <TableCell sx={{ color: "#fff" }}>
-                  {product.isActive ? "Yes" : "No"}
-                </TableCell>
-                <TableCell sx={{ color: "#fff" }}>
-                  {new Date(product.createdAt).toLocaleDateString()}
-                </TableCell>
-                <TableCell sx={{ color: "#fff" }}>{product.stock}</TableCell>
-                <TableCell sx={{ color: "#fff" }}>Rs.{product.price}.00</TableCell>
-                <TableCell>
-                  <Button
-                    color="success"
-                    onClick={() => handleUpdate(product._id)}
-                  >
-                    Update
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <Button
-                    color="error"
-                    onClick={() => handleDelete(product._id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
+      <Box sx={{ display: "flex", justifyContent: "end" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={generatePDF}
+          sx={{ m: 2 }}
+        >
+          Download PDF
+        </Button>
+      </Box>
+      <Box px={2}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            backgroundColor: "#2c2c38",
+            color: "#fff",
+            p: 2,
+            mb:2,
+            minHeight: "100vh",
+          }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ color: "#000" }}>NAME</TableCell>
+                <TableCell sx={{ color: "#000" }}>IS AVAILABLE</TableCell>
+                <TableCell sx={{ color: "#000" }}>CREATED AT</TableCell>
+                <TableCell sx={{ color: "#000" }}>STOCK</TableCell>
+                <TableCell sx={{ color: "#000" }}>PRICE</TableCell>
+                <TableCell sx={{ color: "#000" }}>UPDATE</TableCell>
+                <TableCell sx={{ color: "#000" }}>DELETE</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {products.map((product) => (
+                <TableRow key={product._id}>
+                  <TableCell sx={{ color: "#fff" }}>{product.name}</TableCell>
+                  <TableCell sx={{ color: "#fff" }}>
+                    {product.isActive ? "Yes" : "No"}
+                  </TableCell>
+                  <TableCell sx={{ color: "#fff" }}>
+                    {new Date(product.createdAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell sx={{ color: "#fff" }}>{product.stock}</TableCell>
+                  <TableCell sx={{ color: "#fff" }}>
+                    Rs.{product.price}.00
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      color="success"
+                      onClick={() => handleUpdate(product._id)}
+                    >
+                      Update
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      color="error"
+                      onClick={() => handleDelete(product._id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
       <Footer />
     </Grid>
   );

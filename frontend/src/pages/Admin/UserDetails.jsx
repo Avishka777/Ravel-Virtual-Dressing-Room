@@ -37,13 +37,13 @@ const UserDetails = () => {
   return (
     <Grid container>
       <AdminHeader />
-      <Grid item xs={12} sx={{ p: 2, m: 2, display: 'flex', justifyContent: 'flex-end' }}>
+      <Grid item xs={12} sx={{ px: 2,  display: 'flex', justifyContent: 'flex-start' }}>
         <TextField
           label="Search"
           variant="outlined"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ mb: 2 }}
+          sx={{ mt: 2,width:"20rem" ,background: "#EEEAEA",borderRadius:"10px"}}
         />
       </Grid>
 
