@@ -25,11 +25,9 @@ To get started with the project, follow these steps:
     - npm run dev
 5. Run Frontend Server: Open a new terminal and navigate to the frontend directory within the project directory using the following command:
     - cd frontend
-6. Create .env file: use "VITE_FIREBASE_API_KEY" for your firebase api key:
-    - VITE_FIREBASE_API_KEY  = ""AIzaxxxxxxxxxxxxxxxxxxx"
-7. Then, run the following command to start the frontend server:
+6. Then, run the following command to start the frontend server:
     - npm run dev
-8. Access the Application: Open a web browser and go:
+7. Access the Application: Open a web browser and go:
     -  http://localhost:5173/
-9. Login: You can log in as an admin, faculty, or student using the provided credentials.
-10. With these steps, you should now be able to run the project locally and access it through your web browser.
+8. Login: You can log in as an admin, faculty, or student using the provided credentials.
+9. With these steps, you should now be able to run the project locally and access it through your web browser.
