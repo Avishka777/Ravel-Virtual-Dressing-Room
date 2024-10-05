@@ -1,0 +1,253 @@
+/* Base styles */
+* {
+  box-sizing: border-box; /* Ensure padding and borders are included in element size */
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif; /* Use a responsive-friendly font */
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa; /* Light background color */
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+/* Responsive Media Queries */
+@media only screen and (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 14px; /* Reduce font size on tablets */
+  }
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 30vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Card styles */
+.card {
+  padding: 30px;
+  /* background-color: rgba(214, 224, 226, 0.2); */
+  border-radius: 5px;
+  box-sizing: border-box;
+  
+}
+
+/* Hover card */
+.card.hovercard {
+  position: relative;
+
+  padding-top: 0;
+  overflow: hidden;
+  /* text-align: center; */
+  /* background-color: rgba(255, 255, 255, 1); */
+}
+
+.card.hovercard .card-background {
+  height: 20px;
+}
+
+.card-background img {
+  filter: blur(25px);
+  /* margin-left: -100px; */
+  margin-top: -200px;
+  min-width: 130%;
+  justify-content: flex-start;
+}
+
+.card.hovercard .useravatar {
+  position: relative;
+  top: 5px;
+  
+}
+.card.hovercard .useravatar img {
+  /* width: 100px; */
+  height: 60px;
+  /* border-radius: 50%; */
+  object-fit: cover;
+}
+
+/* Card title */
+.card.hovercard .card-info .card-title {
+  padding: 0 5px;
+  font-size: 20px;
+  line-height: 26px;
+  color: #003366;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+/* Card info */
+.card.hovercard .card-info {
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 20px;
+  color: #737373;
+  text-overflow: ellipsis;
+}
+
+.card.hovercard .bottom {
+  padding: 0 20px;
+  margin-bottom: 17px;
+}
+
+/* Button styles */
+.btn-pref .btn {
+  border-radius: 0 !important;
+  background-color: #003366;
+  color: #f8f9fa;
+}
+
+.btn-primary {
+  background-color: #003366;
+}
+
+.btn-primary:hover {
+  background-color: #00509e; /* Change this to your preferred hover color */
+  color: #ffffff;
+}
+
+/* Button active (selected) state */
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: #00509e; /* Change this to your preferred selected color */
+  color: #ffffff;
+}
+/* Horizontal rule */
+hr.style13 {
+  height: 10px;
+  border: 0;
+  /* box-shadow: 0 10px 10px -10px #8c8b8b inset; */
+  /* margin: 5px 0; */
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+  .App-header {
+    min-height: 50vh;
+    font-size: calc(10px + 3vmin);
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .card.hovercard .card-title {
+    font-size: 18px;
+  }
+
+  .btn-pref .btn {
+    font-size: 12px;
+    padding: 10px 15px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .App-header {
+    min-height: 60vh;
+    font-size: calc(10px + 4vmin);
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .card.hovercard .card-title {
+    font-size: 16px;
+  }
+
+  .btn-pref .btn {
+    font-size: 10px;
+    padding: 8px 12px;
+  }
+}
+/* Container for the entire header */
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Space between the title section and buttons */
+  align-items: center;
+  padding: 20px;
+  background-color: #003366; /* Same as App header background */
+  height: 20vh;
+}
+
+/* Button group styles */
+.header-buttons {
+  display: flex;
+  gap: 15px; /* Space between buttons */
+}
+
+/* Individual button styles */
+.header-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between the icon and text */
+  padding: 10px 20px;
+  background-color: #003366; /* Button color */
+  color: #f8f9fa;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.header-btn:hover {
+  background-color: #00509e; /* Button hover color */
+}
+
+.header-btn:active {
+  background-color: #001f4d; /* Button active color */
+}
+
+/* Style for FontAwesome icons inside the buttons */
+.header-btn i {
+  font-size: 18px; /* Adjust icon size */
+}
+
+/* Remove default button styles (if necessary) */
+button {
+  outline: none;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+}
